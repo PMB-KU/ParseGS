@@ -1,8 +1,18 @@
 rm(list=ls())
+msg<-"
+This is a script to parse the output files from http://gs.bs.s.u-tokyo.ac.jp/ to standard newick format.
+
+Usage:
+  parseGS(newick,OTUList,output=NULL)
+  
+Newick and OTUList files could be downloaded from the results page. If you wish to change the name of proteins, modify the second column in OTUList.
+If no OTUList file was provided, the input files will still be parsed, but without changing the IDs.
+Specify the name of parsed file with the \"output\" argument. If not provided, the input newick file name will be used with a \"Parsed-\" prefix.  
+
+Last modified: 2020-03-21 by Rui Sun
+"
+message(msg)
 parseGS<-function(newick,OTUList=NULL,output=NULL){
-  # newick<-"seq_BLOSUM62_11_1_blast_GSP.nwk copy"
-  # OTUList<-NULL
-  OTUList<-"seq_BLOSUM62_11_1_blast_simple.txt"
   if (!is.null(OTUList)){
     dict<-read.delim(OTUList,header=F,quote="",sep = "\t",stringsAsFactors = F)
     dict$V1<-as.character(dict$V1)
@@ -14,11 +24,8 @@ parseGS<-function(newick,OTUList=NULL,output=NULL){
   names(data)<-"Original"
   data$Split<-lapply(data$Original,function(x)(strsplit(x,":\\[|\\]")))
   myReplace<-function(entry){
-    # temp<-data.frame(Split1=unlist(data$Split[1]),stringsAsFactors = F)
-    
     temp<-data.frame(Split1=unlist(entry),stringsAsFactors = F)
     temp$mask1[grep("\\(|\\)",temp$Split1)]<-temp$Split1[grep("\\(|\\)",temp$Split1)]
-    # temp$Split2[!is.na(temp$mask1)]<-lapply(temp$mask1[!is.na(temp$mask1)],function(x)(strsplit(x,"\\(|,|\\)")))
     temp$Split2<-lapply(temp$mask1,function(x)(strsplit(x,"[\\(|,|\\|;)]+")))
     temp$mask2<-lapply(temp$mask1,function(x)(strsplit(x,"[0-9]+")))
     temp$Replace1<-lapply(temp$Split2,
