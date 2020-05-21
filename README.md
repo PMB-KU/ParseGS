@@ -3,7 +3,7 @@ This is a script to parse the output files from http://gs.bs.s.u-tokyo.ac.jp/ to
 
 Newick and OTUList files to be parsed by this script could be downloaded from the results page. If you wish to change the name of proteins, modify the second column in OTUList.
 
-Download parse_GS_newick.R . Start R or R studio from the directory where you put the Newick and OTUList files. Use `setwd` to change the directory if neccessary.
+Download parse_GS_newick.R and put it in the same directory as your Newick and OTUList files. Start R or RStudio in that directory. Use `setwd()` to change the working directory if neccessary.
 
 Enter the following commands in R or RStudio:
 ```r
