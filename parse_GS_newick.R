@@ -9,7 +9,7 @@ Newick and OTUList files could be downloaded from the results page. If you wish 
 If no OTUList file was provided, the input files will still be parsed, but without changing the IDs.
 Specify the name of parsed file with the \"output\" argument. If not provided, the input newick file name will be used with a \"Parsed-\" prefix.  
 
-Last modified: 2020-03-21 by Rui Sun
+Last modified: 2020-05-21 by Rui Sun
 "
 message(msg)
 parseGS<-function(newick,OTUList=NULL,output=NULL){
