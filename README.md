@@ -16,7 +16,7 @@ If no OTUList file was provided, the input files will still be parsed, but witho
 Specify the name of parsed file with the "output" argument. If not provided, the input newick file name will be used with a "Parsed-" prefix.  
 
 ## 説明
-http://gs.bs.s.u-tokyo.ac.jp/ からの出力ファイルを標準のnewick形式に解析するスクリプトです。
+http://gs.bs.s.u-tokyo.ac.jp/ からの出力ファイルを標準のnewick形式に変換するスクリプトです。
 
 このスクリプトで解析されるNewickファイルとOTUListファイルは、結果ページからダウンロードできます。 タンパク質の名前を変更する場合は、OTUListの2列目を変更してください。
 
