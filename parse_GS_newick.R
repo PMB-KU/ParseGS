@@ -9,15 +9,17 @@ Newick and OTUList files could be downloaded from the results page. If you wish 
 If no OTUList file was provided, the input files will still be parsed, but without changing the IDs.
 Specify the name of parsed file with the \"output\" argument. If not provided, the input newick file name will be used with a \"Parsed-\" prefix.  
 
-Last modified: 2020-05-21 by Rui Sun
+Last modified: 2020-06-12 by Rui Sun
 "
 message(msg)
 parseGS<-function(newick,OTUList=NULL,output=NULL){
   if (!is.null(OTUList)){
     dict<-read.delim(OTUList,header=F,quote="",sep = "\t",stringsAsFactors = F)
     dict$V1<-as.character(dict$V1)
+    dict$V2<-gsub(" .*","",dict$V2)
     dict$V2<-gsub(",",".",dict$V2,fixed = T)
     dict$V2<-gsub(":",";",dict$V2,fixed = T)
+    
   }
   
   data<-read.delim(newick,header=F,quote="",sep = "\t",stringsAsFactors = F)
@@ -46,6 +48,10 @@ parseGS<-function(newick,OTUList=NULL,output=NULL){
   }
   data$Replace<-sapply(data$Split,myReplace)
   
-  if (is.null(output)) output<-paste0("Parsed-",newick)
+  if (is.null(output)) {
+    newick.path<-sub("(.*)[\\|/].*","\\1",newick)
+    newick.name<-sub(".*[\\|/]","",newick)
+    output<-paste0(newick.path,"/Parsed-",newick.name)
+    }
   write.table(data$Replace,output,quote = F,row.names = F,col.names = F) 
 }
